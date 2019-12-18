@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Car</title>
+</head>
+<body>
+<h1>Add Car</h1>
+
+<form action="#" th:action="@{addCar}" th:object="${car}" method="post">
+    <p>
+        Brand: <input type="text" th:field="*{brand}">
+    </p>
+    <p>
+        Model: <input type="text" th:field="*{model}">
+    </p>
+    <p>
+        License plate: <input type="text" th:field="*{licensePlate}">
+    </p>
+    <p>
+        Motor capacity: <input type="text" th:field="*{motorCap}">
+    </p>
+    <p>
+        Fuel: <input type="text" th:field="*{fuel}">
+    </p>
+    <p>
+        Year: <input type="text" th:field="*{year}">
+    </p>
+    <p>
+        User id: <input type="text" th:field="*{user}">
+    </p>
+    <p>
+        <input type="submit" value="Submit"/> <input type="reset" value="Reset">
+    </p>
+</form>
+</body>
+</html>
