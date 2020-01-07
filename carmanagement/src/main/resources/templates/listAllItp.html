@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Itp list</title>
+    <link rel="stylesheet" th:href="@{/homestyle.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+<div class="menubar">
+    <a href="/home">
+        <button class="btn"><i class="fa fa-home"></i> Home</button>
+    </a>
+    <a href="/users/loggedInUser">
+        <button class="btn"><i class="fa fa-male"></i> User</button>
+    </a>
+    <b class="active">List of all Itp's</b>
+</div>
+<table style="padding:10px 0 10px 0" border="1.5px" width=100% bgcolor="black">
+    <thead>
+    <tr bgcolor="#a9a9a9">
+        <th width="170"> Itp start date</th>
+        <th width="170" height="30px"> Itp end date</th>
+        <th width="170"> Costs in Lei</th>
+        <th width="170"> Actual date</th>
+        <th width="170"> Days remaining</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${itpList.empty}">
+        <td colspan="2"> No Itp Available</td>
+    </tr>
+    <tr th:each="itp : ${itpList}">
+        <td th:text="${#dates.format(itp.startDateItp, 'dd-MMM-yyyy')}"></td>
+        <td th:text="${#dates.format(itp.endDateItp, 'dd-MMM-yyyy')}"></td>
+        <td th:text="${itp.costItp}"></td>
+        <td th:text="${#dates.format(#dates.createNow(), 'dd-MMM-yyyy')}"></td>
+        <td th:text="${itp.remainingDaysForItp}"></td>
+
+    </tr>
+</table>
+</body>
+</html>

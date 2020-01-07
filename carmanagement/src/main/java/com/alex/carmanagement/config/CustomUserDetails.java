@@ -21,7 +21,9 @@ public class CustomUserDetails extends User {
     public String getLastName() {
         return lastName;
     }
-    public CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities, Integer id, String firstName, String lastName) {
+
+    public CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities
+            , Integer id, String firstName, String lastName) {
         super(username, password, authorities);
         this.id = id;
         this.firstName = firstName;

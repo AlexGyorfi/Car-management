@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Car</title>
+    <link rel="stylesheet" th:href="@{/homestyle.css}">
+</head>
+<body>
+<div align="center" style="height: 50px;background-color: black;color:honeydew; font-family: Helvetica">
+    <h1 style="padding: 15px">Update car: </h1>
+</div>
+<br>
+<form th:action="@{update}" th:object="${car}" method="post">
+    <table>
+        <tr>
+            <td>Brand:</td>
+            <td><input type="text" th:field="*{brand}"></td>
+        </tr>
+        <br>
+        <tr>
+            <td>Model:</td>
+            <td><input type="text" th:field="*{model}"></td>
+        </tr>
+        <br>
+        <tr>
+            <td>Year:</td>
+            <td><input type="text" th:field="*{year}"></td>
+        </tr>
+        <br>
+        <tr>
+            <td>Motor capacity:</td>
+            <td><input type="text" th:field="*{motorCap}"></td>
+        </tr>
+        <br>
+        <tr>
+            <td>Fuel:</td>
+            <td><input type="text" th:field="*{fuel}"></td>
+        </tr>
+        <br>
+        <tr>
+            <td>License plate:</td>
+            <td><input type="text" th:field="*{licensePlate}"></td>
+        </tr>
+        <br>
+        <tr> <input type="hidden" th:field="*{carId}">
+            <td><input type="submit" value="Submit"/> <input type="reset" value="Reset"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

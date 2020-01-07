@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User</title>
+    <link rel="stylesheet" th:href="@{/homestyle.css}">
+</head>
+<body>
+<div align="center" style="height: 50px;background-color: black;color:honeydew; font-family: Helvetica">
+    <h1 style="padding: 15px">Update user details: </h1>
+</div>
+<br>
+<form th:action="@{update}" th:object="${user}" method="post">
+    <table>
+        <tr>
+            <td>
+                Username:
+            </td>
+            <td>
+                <input type="text" th:field="*{username}">
+            </td>
+        </tr>
+        <br>
+        <tr>
+            <td>
+                First name:
+            </td>
+            <td>
+                <input type="text" th:field="*{firstName}">
+            </td>
+        </tr>
+        <br>
+        <tr>
+            <td>Last name:</td>
+            <td><input type="text" th:field="*{lastName}"></td>
+        </tr>
+        <br>
+        <tr>
+            <td>Email address:</td> <td><input type="text" th:field="*{email}"></td>
+        </tr>
+        <br>
+
+        <tr> <input type="hidden" th:field="*{userId}">
+            <td><input type="submit" value="Submit"/> <input type="reset" value="Reset"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

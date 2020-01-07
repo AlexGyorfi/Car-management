@@ -3,35 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Car</title>
+    <link rel="stylesheet" th:href="@{/homestyle.css}">
 </head>
 <body>
-<h1>Add Car</h1>
+<div class="menubar">
+    <a href="/home">Home</a>
+    <a href="/users/loggedInUser">User</a>
+    <a href="/cars/list">Cars</a>
+    <b class="active">Add new car</b>
+</div>
 
 <form action="#" th:action="@{addCar}" th:object="${car}" method="post">
-    <p>
-        Brand: <input type="text" th:field="*{brand}">
-    </p>
-    <p>
-        Model: <input type="text" th:field="*{model}">
-    </p>
-    <p>
-        License plate: <input type="text" th:field="*{licensePlate}">
-    </p>
-    <p>
-        Motor capacity: <input type="text" th:field="*{motorCap}">
-    </p>
-    <p>
-        Fuel: <input type="text" th:field="*{fuel}">
-    </p>
-    <p>
-        Year: <input type="text" th:field="*{year}">
-    </p>
-    <p>
-        User id: <input type="text" th:field="*{user}">
-    </p>
-    <p>
-        <input type="submit" value="Submit"/> <input type="reset" value="Reset">
-    </p>
+    <table>
+    <tr>
+        <td>
+            Brand:
+        </td>
+        <td>
+            <input type="text" th:field="*{brand}">
+        </td>
+    </tr>
+    <br>
+    <tr>
+        <td>
+            Model:
+        </td>
+        <td>
+            <input type="text" th:field="*{model}">
+        </td>
+    </tr>
+    <br>
+    <tr>
+        <td>Year:</td>
+        <td><input type="text" th:field="*{year}"></td>
+    </tr>
+    <br>
+    <tr>
+        <td>Motor capacity:</td> <td><input type="text" th:field="*{motorCap}"></td>
+    </tr>
+    <br>
+    <tr>
+        <td>Fuel:</td> <td><input type="text" th:field="*{fuel}"></td>
+    </tr>
+    <br>
+    <tr>
+        <td>License plate:</td> <td><input type="text" th:field="*{licensePlate}"></td>
+    </tr>
+    <br>
+    <tr>
+        <td><input type="submit" value="Submit"> <input type="reset" value="Reset"></td>
+    </tr>
+    </table>
 </form>
 </body>
 </html>

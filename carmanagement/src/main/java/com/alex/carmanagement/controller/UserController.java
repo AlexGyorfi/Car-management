@@ -1,61 +1,79 @@
 package com.alex.carmanagement.controller;
 
 import com.alex.carmanagement.datamodel.User;
-import com.alex.carmanagement.dto.UserDto;
 import com.alex.carmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/api/users")
+@RequestMapping(value = "/users")
 public class UserController {
     @Autowired
     private UserService userService;
 
-//    @GetMapping(value = "/findByUsername/{username}")
-//    public User findByUsername(@PathVariable(name = "username") String username) {
-//        return userService.findByUsername(username);
-//    }
-//
-//    @GetMapping(value = "/{id}")
-//    public User findById(@PathVariable(name = "id") int id) {
-//        return userService.findById(id);
-//    }
-//
-//    @GetMapping(value = "/findAll")
-//    public List<UserDto> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
-//                                 @RequestParam(value = "size", defaultValue = "5") Integer size,
-//                                 @RequestHeader(value = "Test-Header", required = false) String testHeader) {
-//        System.out.println(testHeader);
-//        return userService.findAll(page, size);
+//    @GetMapping(value = "/list")
+//    public String findAllUsers(Model model) {
+//        List<User> users = userService.findAllUsers();
+//        model.addAttribute("users", users);
+//        return "listUsers";
 //    }
 
-    @PostMapping("/registration")
-    public String createUser(@Valid User user, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "registration";
-        } else
+    @GetMapping(value = "/loggedInUser")
+    public String loggedInUser(String username, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        User loggedInUser = userService.getUserByUsername(userName);
+        List <User> users =new ArrayList<>();
+        users.add(loggedInUser);
+        model.addAttribute("users", users);
+        return "loggedInUser";
+    }
 
-            return "registration";
-        }
-
-
-//    @PutMapping(value = "/{id}")
-//    public User updateUser(@PathVariable(name = "id") int id, @RequestBody User user) {
-//        return userService.updateUser(id, user);
-//    }
-
-    @DeleteMapping(value = "/{id}")
-    public String deleteUser(@PathVariable(name = "id") int id) {
-        userService.deleteUser(id);
-        return "The departement was deleted!";
+    @GetMapping(value = "/registration")
+    public String showUserRegistration(Model model) {
+        model.addAttribute("user", new User());
+        return "registration";
     }
 
 
+
+    @PostMapping(value = "/registration")
+    public String createUser(@Valid User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "registration";
+        } else
+            userService.createUser(user);
+        return "redirect:/users/loggedInUser";
+    }
+
+    @PostMapping(value = "/delete")
+    public String deleteUser(@ModelAttribute(name = "userId") Integer userId, Model model) {
+        userService.deleteUser(userId);
+        return "redirect:/users/registration";
+    }
+    @GetMapping(value = "/update")
+    public String updateUserSendForm(@RequestParam("userId") Integer userId, Model model) {
+        model.addAttribute("user", userService.findById(userId));
+        return "updateUser";
+    }
+
+    @PostMapping(value = "/update")
+    public String updateCarProcessForm(@ModelAttribute(name = "user") User user, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User loggedInUser = userService.getUserByUsername(username);
+        user.setPassword(loggedInUser.getPassword());
+        model.addAttribute("user", loggedInUser);
+        userService.updateUser(user);
+        return "redirect:/users/loggedInUser";
+    }
 }

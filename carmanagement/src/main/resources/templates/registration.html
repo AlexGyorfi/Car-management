@@ -1,19 +1,72 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Registration</title>
+    <link rel="stylesheet" th:href="@{/homestyle.css}">
 </head>
 <body>
-<form action="#" th:action="@{/adduser}" th:object="${user}" method="post">
-    <label for="name">Name</label>
-    <input type="text" th:field="*{name}" id="name" placeholder="Name">
-    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-    <label for="email">Email</label>
-    <input type="text" th:field="*{email}" id="email" placeholder="Email">
-    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-    <input type="submit" value="Add User">
-</form>
+<form action="#" th:action="@{registration}" th:object="${user}" method="post">
+<div class="login-wrap">
+    <div class="login-html">
+        <input id="tab-1" type="radio" name="tab" class="sign-in" ><label for="tab-1" class="tab">Sign In</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up" checked><label for="tab-2" class="tab">Register</label>
+        <div class="login-form">
+            <div class="sign-in-htm">
+                <div class="group">
+                    <label for="user" class="label">Username</label>
+                    <input id="user" type="text" class="input">
+                </div>
 
+                <div class="group">
+                    <label for="password" class="label">Password</label>
+                    <input id="password" type="password" class="input" data-type="password">
+                </div>
+<!--                <div class="group">-->
+<!--                    <input id="check" type="checkbox" class="check" checked>-->
+<!--                    <label for="check"><span class="icon"></span> Keep me Signed in</label>-->
+<!--                </div>-->
+                <div class="group">
+                    <input type="submit" class="button" value="Let me In">
+                </div>
+                <div class="hr"></div>
+<!--                <div class="foot-lnk">-->
+<!--                    <a href="#forgot">Forgot Password?</a>-->
+<!--                </div>-->
+            </div>
+            <div class="sign-up-htm">
+                <div class="group">
+                    <label for="username" class="label">Username</label>
+                    <input id="username" type="text" class="input" th:field="*{username}">
+<!--                    <input type="text" th:field="*{username}">-->
+                </div>
+				<div class="group">
+                    <label for="firstName" class="label">First name</label>
+                    <input id="firstName" type="text" class="input" th:field="*{firstName}">
+                </div>
+                <div class="group">
+                    <label for="lastName" class="label">Last name</label>
+                    <input id="lastName" type="text" class="input" th:field="*{lastName}">
+                </div>
+				<div class="group">
+                    <label for="email" class="label">Email Address</label>
+                    <input id="email" type="text" class="input" th:field="*{email}">
+                </div>
+                <div class="group">
+                    <label for="password" class="label">Password</label>
+                    <input id="password" type="password" class="input" data-type="password" th:field="*{password}">
+                </div>
+                
+                <div class="group">
+                    <input type="submit" class="button" value="Submit">
+                </div>
+                <div class="hr"></div>
+<!--                <div class="foot-lnk">-->
+<!--                    <label for="tab-1">Already Registered?</a>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+</form>
 </body>
 </html>

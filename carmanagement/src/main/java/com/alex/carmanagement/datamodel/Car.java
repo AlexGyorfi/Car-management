@@ -22,6 +22,8 @@ public class Car {
     private String fuel;
     @Column(name = "gas")
     private Boolean gas;
+
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -103,6 +105,14 @@ public class Car {
 
     public void setGas(boolean gas) {
         this.gas = gas;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

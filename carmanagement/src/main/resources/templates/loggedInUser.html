@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User list</title>
+    <link rel="stylesheet" th:href="@{/homestyle.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="menubar">
+    <a href="/home"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
+    <a href="/cars/list"><button class="btn"><i class="fa fa-car"></i> List of cars</button></a>
+    <b class="active">User information</b>
+</div>
+<table style="padding:10px" border="2px" bgcolor="#f0f8ff">
+    <thead>
+    <tr>
+<!--        <th width="100"> User id</th>-->
+        <th width="100"> Username</th>
+        <th width="100"> First name</th>
+        <th width="100"> Last name</th>
+        <th width="100"> Email address</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${users.empty}">
+        <td colspan="2"> No User Available</td>
+    </tr>
+    <tr th:each="user : ${users}">
+<!--        <td th:text="${user.userId}"></td>-->
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.email}"></td>
+
+        <td>
+            <form action="http://localhost:8080/users/delete" method="post">
+                <div>
+                    <input type="hidden" th:name="userId" th:value="${user.userId}">
+                    <input type="submit" name="Submit" value="Delete">
+                </div>
+            </form>
+        </td>
+        <td>
+            <form action="http://localhost:8080/users/update" method="get">
+                <div>
+                    <input type="hidden" th:name="userId" th:value="${user.userId}">
+                    <input type="submit" name="Submit" value="Update">
+                </div>
+            </form>
+        </td>
+    </tr>
+</table>
+<br>
+<form action="http://localhost:8080/cars/list">
+    <button type="submit">Your cars</button>
+</form>
+
+</body>
+</html>

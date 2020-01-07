@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Car list</title>
+    <link rel="stylesheet" th:href="@{/homestyle.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="menubar">
+    <a href="/home">
+        <button class="btn"><i class="fa fa-home"></i> Home</button>
+    </a>
+    <a href="/users/loggedInUser">
+        <button class="btn"><i class="fa fa-male"></i> User</button>
+    </a>
+    <a href="/cars/list">
+        <button class="btn"><i class="fa fa-car"></i>List of cars</button>
+    </a>
+    <b class="active">Car details</b>
+</div>
+<table id="t01">
+    <thead>
+    <tr>
+        <th> License plate</th>
+        <th> Brand</th>
+        <th> Model</th>
+        <th> Year</th>
+        <th> Motor capacity</th>
+        <th> Fuel</th>
+        <th> Delete the car</th>
+        <th> Update info</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="car : ${cars}">
+        <td th:text="${car.licensePlate}"></td>
+        <td th:text="${car.brand}"></td>
+        <td th:text="${car.model}"></td>
+        <td th:text="${car.year}"></td>
+        <td th:text="${car.motorCap}"></td>
+        <td th:text="${car.fuel}"></td>
+        <td>
+            <form action="http://localhost:8080/cars/delete" method="post">
+                <div align="center">
+                    <input type="hidden" th:name="carId" th:value="${car.carId}">
+                    <form><input type=submit value="Delete" style="width:100%"></form>
+                </div>
+            </form>
+        </td>
+        <td>
+            <form action="http://localhost:8080/cars/update" method="get">
+                <div align="center">
+                    <input type="hidden" th:name="carId" th:value="${car.carId}">
+                    <form><input type=submit value="Update" style="width:100%"></form>
+                </div>
+            </form>
+        </td>
+        <td>
+            <form action="http://localhost:8080/itp/addItp" method="get">
+                <input type="hidden" th:name="carId" th:value="${car.carId}">
+                <form><input type=submit value="Add Itp" style="width:100%"></form>
+            </form>
+        </td>
+        <td>
+            <form action="http://localhost:8080/itp/show" method="get">
+                <input type="hidden" th:name="carId" th:value="${car.carId}">
+                <form><input type=submit value="Show Itp" style="width:100%"></form>
+            </form>
+        </td>
+        <td>
+            <form action="http://localhost:8080/itp/update" method="get">
+                <input type="hidden" th:name="carId" th:value="${car.carId}">
+                <form><input type=submit value="Update Itp" style="width:100%"></form>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

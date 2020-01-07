@@ -1,12 +1,15 @@
 package com.alex.carmanagement.service;
 
 import com.alex.carmanagement.converter.UserConverter;
+import com.alex.carmanagement.datamodel.Car;
 import com.alex.carmanagement.datamodel.User;
 import com.alex.carmanagement.dto.UserDto;
 import com.alex.carmanagement.exceptions.MyException;
 import com.alex.carmanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,12 +30,22 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
+    }
+
+
     public User findByUsername(String username) {
         User user = userRepository.findByUsername(username);
         if (user == null) {
             String msg = "Please try again";
             throw new MyException(String.format("User with username %s not found %s", username, msg));
         }
+        return user;
+    }
+
+    public User getUserByUsername(String username) {
+        User user = userRepository.getUserByUsername(username);
         return user;
     }
 
@@ -49,21 +62,11 @@ public class UserService {
 
     public User findById(Integer id) {
         Optional<User> byId = userRepository.findById(id);
-        User usertemp = byId.get();
-        return usertemp;
+        return byId.get();
     }
 
-    public User updateUser(Integer id, User user) {
-        Optional<User> byId = userRepository.findById(id);
-        if (byId.isPresent()) {
-            User usertemp = byId.get();
-            usertemp.setFirstName(user.getFirstName());
-            usertemp.setLastName(user.getLastName());
-            usertemp.setPassword(user.getPassword());
-            return userRepository.save(usertemp);
-        } else {
-            throw new MyException("No such user");
-        }
+    public User updateUser(User user) {
+        return userRepository.save(user);
     }
 
     public void deleteUser(Integer id) {
